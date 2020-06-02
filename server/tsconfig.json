@@ -7,7 +7,5 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
 		"outDir": "./build"
-	},
-	"exclude": ["./build"],
-	"include": ["./src"]
+	}
 }
