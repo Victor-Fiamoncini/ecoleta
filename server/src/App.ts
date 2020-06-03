@@ -3,6 +3,8 @@ import helmet from 'helmet'
 import cors from 'cors'
 import morgan from 'morgan'
 
+import routes from './routes'
+
 export default class App {
 	private app: Application
 
@@ -31,5 +33,7 @@ export default class App {
 
 		this.app.use(express.json())
 		this.app.use(morgan('dev'))
+
+		this.app.use(routes)
 	}
 }
