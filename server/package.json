@@ -12,9 +12,10 @@
     "lint:fix": "yarn lint -- --fix",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
     "build": "tsc -p . --experimentalDecorators \"true\"",
-		"start": "ts-node ./build/server.js",
-		"knex:migrate": "yarn knex --knexfile ./src/app/database/knexfile.ts migrate:latest",
-		"knex:migrate:rollback": "yarn knex --knexfile ./src/app/database/knexfile.ts migrate:rollback"
+    "start": "ts-node ./build/server.js",
+    "knex:migrate": "yarn knex --knexfile ./src/app/database/knexfile.ts migrate:latest",
+    "knex:migrate:rollback": "yarn knex --knexfile ./src/app/database/knexfile.ts migrate:rollback",
+    "knex:seed": "yarn knex --knexfile ./src/app/database/knexfile.ts seed:run"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -36,6 +37,7 @@
     "@types/joi": "^14.3.4",
     "@types/knex": "^0.16.1",
     "@types/morgan": "^1.9.0",
+    "@types/node": "^14.0.9",
     "@typescript-eslint/eslint-plugin": "^3.1.0",
     "@typescript-eslint/parser": "^3.1.0",
     "eslint": "^7.1.0",

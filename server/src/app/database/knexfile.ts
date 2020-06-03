@@ -16,8 +16,12 @@ module.exports = {
 			max: 10,
 		},
 		migrations: {
-			directory: './migrations',
+			directory: `${__dirname}/migrations`,
 		},
+		seeds: {
+			directory: `${__dirname}/seeds`,
+		},
+		useNullAsDefault: true,
 	},
 
 	staging: {
@@ -32,8 +36,12 @@ module.exports = {
 			max: 10,
 		},
 		migrations: {
-			directory: './migrations',
+			directory: `${__dirname}/migrations`,
 		},
+		seeds: {
+			directory: `${__dirname}/seeds`,
+		},
+		useNullAsDefault: true,
 	},
 
 	production: {
@@ -48,7 +56,11 @@ module.exports = {
 			max: 10,
 		},
 		migrations: {
-			directory: './migrations',
+			directory: `${__dirname}/migrations`,
 		},
+		seeds: {
+			directory: `${__dirname}/seeds`,
+		},
+		useNullAsDefault: true,
 	},
 }
