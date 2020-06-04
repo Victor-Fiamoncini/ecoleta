@@ -1,11 +1,25 @@
 import '../../bootstrap'
 import knex from 'knex'
-import configs from './knexfile'
 
-const { NODE_ENV } = process.env
+const { DB_TEST, DB_NAME, DB_USER, DB_PASS, NODE_ENV } = process.env
 
-export default knex(
-	// NODE_ENV === 'development' || NODE_ENV === 'test'
-	configs.development
-	// : configs.production
-)
+export default knex({
+	client: 'mysql',
+	connection: {
+		database:
+			NODE_ENV === 'development' || NODE_ENV === 'test' ? DB_TEST : DB_NAME,
+		user: DB_USER,
+		password: DB_PASS,
+	},
+	pool: {
+		min: 2,
+		max: 10,
+	},
+	migrations: {
+		directory: `${__dirname}/migrations`,
+	},
+	seeds: {
+		directory: `${__dirname}/seeds`,
+	},
+	useNullAsDefault: true,
+})

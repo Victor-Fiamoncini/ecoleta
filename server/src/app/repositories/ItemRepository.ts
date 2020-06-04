@@ -1,10 +1,11 @@
-import knex from '../database'
+import * as knex from '../database'
 import Item from '../models/Item'
 
 export default class ItemRepository {
+	private readonly tableName = 'items'
 	private items: Item[] = []
 
-	public index(): Item[] {
-		return this.items
+	public async findAll(): Promise<Item[]> {
+		return await knex.default(this.tableName).select('*')
 	}
 }
