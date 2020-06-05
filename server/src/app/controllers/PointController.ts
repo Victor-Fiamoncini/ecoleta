@@ -3,17 +3,42 @@ import { PointDTO } from '../models/dto'
 import { PointDAO, PointItemDAO } from '../models/dao'
 
 class PointController {
+	public async index(request: Request, response: Response) {
+		try {
+			const { city = '', uf = '' } = request.query
+
+			const pointDao = new PointDAO()
+			const points = await pointDao.findAll(String(city), String(uf))
+
+			if (points.length === 0) {
+				return response.status(404).json({ error: 'Points not found' })
+			}
+
+			return response.status(200).json(points)
+		} catch (err) {
+			return response.status(500).json(err)
+		}
+	}
+
 	public async show(request: Request, response: Response) {
 		try {
 			const pointDao = new PointDAO()
-			const points = await pointDao.findWithItems(parseInt(request.params.id))
+			const pointsWithItem = await pointDao.findWithItems(
+				parseInt(request.params.id)
+			)
 
-			const serializedItems = points.map(point => ({
-				title: point.title,
-				image: point.image,
+			if (pointsWithItem.length === 0) {
+				return response.status(404).json({ error: 'Point not found' })
+			}
+
+			const { APP_URL, FILE_URL_PREFIX } = process.env
+
+			const serializedItems = pointsWithItem.map(pointWithItem => ({
+				title: pointWithItem.title,
+				image_url: `${APP_URL}/${FILE_URL_PREFIX}/${pointWithItem.image}`,
 			}))
 
-			const serializedPoint = points[0]
+			const serializedPoint = pointsWithItem[0]
 			delete serializedPoint.image
 			delete serializedPoint.title
 
@@ -32,7 +57,7 @@ class PointController {
 
 			const pointDao = new PointDAO()
 			const pointDto = new PointDTO(request.body)
-			const point = await pointDao.store(pointDto)
+			const point = await pointDao.create(pointDto)
 
 			const pointItemDao = new PointItemDAO()
 			const pointItems = items.map((itemId: number) => ({
@@ -40,7 +65,7 @@ class PointController {
 				point_id: point.id,
 			}))
 
-			await pointItemDao.store(pointItems)
+			await pointItemDao.create(pointItems)
 
 			return response.status(201).json(point)
 		} catch (err) {

@@ -5,6 +5,21 @@ import { PointWithItem } from '../types'
 export default class PointDAO {
 	private readonly table = 'points'
 
+	public async findAll(city?: string, uf?: string): Promise<PointWithItem[]> {
+		return await knex(this.table)
+			.select('points.*')
+			.distinct()
+			.join('point_items', 'points.id', '=', 'point_items.point_id')
+			.where(builder => {
+				if (city) {
+					builder.where('city', city)
+				}
+				if (uf) {
+					builder.where('uf', uf)
+				}
+			})
+	}
+
 	public async findWithItems(id: number): Promise<PointWithItem[]> {
 		return await knex(this.table)
 			.select(
@@ -24,7 +39,7 @@ export default class PointDAO {
 			.where('points.id', '=', id)
 	}
 
-	public async store(point: PointDTO): Promise<PointDTO> {
+	public async create(point: PointDTO): Promise<PointDTO> {
 		const [id] = await knex(this.table).insert(point)
 		point.id = id
 

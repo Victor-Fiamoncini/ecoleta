@@ -13,6 +13,7 @@ router.get('/items', controllers.ItemController.index)
 /**
  * Public Points
  */
+router.get('/points', controllers.PointController.index)
 router.get('/points/:id', controllers.PointController.show)
 router.post(
 	'/points',

@@ -5,7 +5,11 @@ class ItemController {
 	public async index(request: Request, response: Response) {
 		try {
 			const itemDao = new ItemDAO()
-			const items = await itemDao.index()
+			const items = await itemDao.findAll()
+
+			if (items.length === 0) {
+				return response.status(404).json({ error: 'Items not found' })
+			}
 
 			const { APP_URL, FILE_URL_PREFIX } = process.env
 
