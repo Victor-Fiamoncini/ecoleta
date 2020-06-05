@@ -4,12 +4,8 @@ import cors from 'cors'
 import morgan from 'morgan'
 import { resolve } from 'path'
 
+import { IApp } from './types'
 import routes from './routes'
-import error from './app/middlewares/error'
-
-interface IApp {
-	app: Application
-}
 
 export default class App {
 	private props: IApp
@@ -45,6 +41,5 @@ export default class App {
 		)
 
 		this.app.use(routes)
-		this.app.use(error)
 	}
 }

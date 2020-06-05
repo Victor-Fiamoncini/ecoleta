@@ -14,7 +14,10 @@ class PointValidator {
 			longitude: Joi.number(),
 			city: Joi.string(),
 			uf: Joi.string().max(2),
-			items: Joi.array().min(1).unique().required(),
+			items: Joi.array()
+				.items(Joi.number().valid(1, 2, 3, 4, 5, 6))
+				.min(1)
+				.required(),
 		})
 
 		await validate(res, next, req.body, schema)
