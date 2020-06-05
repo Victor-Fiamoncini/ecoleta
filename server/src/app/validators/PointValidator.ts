@@ -8,15 +8,13 @@ class PointValidator {
 		const schema = Joi.object().keys({
 			name: Joi.string().min(2).required(),
 			email: Joi.string().email().required(),
-		})
-
-		await validate(res, next, req.body, schema)
-	}
-
-	public async update(req: Request, res: Response, next: NextFunction) {
-		const schema = Joi.object().keys({
-			name: Joi.string().min(2).required(),
-			email: Joi.string().email().required(),
+			whatsapp: Joi.string(),
+			image: Joi.string(),
+			latitude: Joi.number(),
+			longitude: Joi.number(),
+			city: Joi.string(),
+			uf: Joi.string().max(2),
+			items: Joi.array().min(1).unique().required(),
 		})
 
 		await validate(res, next, req.body, schema)

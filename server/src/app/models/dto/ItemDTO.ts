@@ -1,20 +1,11 @@
-interface ItemDTO {
-	title: string
-	image: string
-}
+export default class ItemDTO {
+	public id: number
+	public title: string
+	public image: string
 
-export default class Item {
-	private props: ItemDTO
-
-	public constructor(props: ItemDTO) {
-		this.props = props
-	}
-
-	public get title(): string {
-		return this.props.title
-	}
-
-	public get image(): string {
-		return this.props.image
+	public constructor({ id, title, image }: ItemDTO) {
+		this.id = id
+		this.title = title
+		this.image = image
 	}
 }

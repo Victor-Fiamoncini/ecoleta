@@ -5,19 +5,24 @@ import morgan from 'morgan'
 import { resolve } from 'path'
 
 import routes from './routes'
+import error from './app/middlewares/error'
+
+interface IApp {
+	app: Application
+}
 
 export default class App {
-	private app: Application
+	private props: IApp
 
-	constructor() {
-		this.app = express()
+	public constructor(props: IApp) {
+		this.props = props
 
 		this.configs()
 		this.middlewares()
 	}
 
-	public get _app(): Application {
-		return this.app
+	public get app(): Application {
+		return this.props.app
 	}
 
 	private configs(): void {
@@ -40,5 +45,6 @@ export default class App {
 		)
 
 		this.app.use(routes)
+		this.app.use(error)
 	}
 }

@@ -2,14 +2,19 @@ import { Request, Response } from 'express'
 import { ItemDAO } from '../models/dao'
 
 class ItemController {
-	public async index(req: Request, res: Response) {
-		const items = await ItemDAO.index()
+	public async index(request: Request, response: Response) {
+		const itemDao = new ItemDAO()
+		const items = await itemDao.index()
 
-		return res.status(200).json('dao')
-	}
+		const { APP_URL, FILE_URL_PREFIX } = process.env
 
-	public async store(req: Request, res: Response) {
-		return res.send()
+		const serializedItems = items.map(item => ({
+			id: item.id,
+			name: item.title,
+			image_url: `${APP_URL}/${FILE_URL_PREFIX}/${item.image}`,
+		}))
+
+		return response.status(200).json(serializedItems)
 	}
 }
 

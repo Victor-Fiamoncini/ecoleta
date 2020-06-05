@@ -9,15 +9,15 @@ const router = Router()
 /**
  * Public Items
  */
-router.post('/items', middlewares.async(controllers.ItemController.index))
+router.get('/items', middlewares.async(controllers.ItemController.index))
 
 /**
  * Public Points
  */
-// router.post(
-// 	'/points',
-// 	validators.PointValidator.store,
-// 	controllers.PointController.store
-// )
+router.post(
+	'/points',
+	validators.PointValidator.store,
+	controllers.PointController.store
+)
 
 export default router

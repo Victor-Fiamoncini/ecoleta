@@ -1,11 +1,11 @@
 import * as Knex from 'knex'
 
 export async function up(knex: Knex): Promise<any> {
-	return knex.schema.createTable('items', (table) => {
+	return knex.schema.createTable('items', table => {
 		table.increments()
 		table.string('image').notNullable()
 		table.string('title').notNullable()
-		table.timestamps()
+		table.timestamps(true, true)
 	})
 }
 

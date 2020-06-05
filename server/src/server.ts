@@ -1,7 +1,8 @@
 import './bootstrap'
+import express from 'express'
 import App from './App'
 
-const { _app } = new App()
+const { app } = new App({ app: express() })
 const { PORT } = process.env
 
-_app.listen(PORT, () => console.log(`Server running at ${PORT} 🚀`))
+app.listen(PORT, () => console.log(`Server running at ${PORT} 🚀`))

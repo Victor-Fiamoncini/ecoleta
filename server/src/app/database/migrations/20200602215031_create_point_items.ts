@@ -1,7 +1,7 @@
 import * as Knex from 'knex'
 
 export async function up(knex: Knex): Promise<any> {
-	return knex.schema.createTable('point_items', (table) => {
+	return knex.schema.createTable('point_items', table => {
 		table.increments()
 		table
 			.integer('point_id')
@@ -17,7 +17,7 @@ export async function up(knex: Knex): Promise<any> {
 			.references('id')
 			.inTable('items')
 			.onDelete('cascade')
-		table.timestamps()
+		table.timestamps(true, true)
 	})
 }
 
