@@ -4,9 +4,8 @@
 
 <script>
 export default {
-  name: 'App',
+	name: 'Home',
 }
 </script>
 
-<style>
-</style>
+<style lang="scss"></style>

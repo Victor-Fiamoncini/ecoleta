@@ -1,6 +1,6 @@
 # Ecoleta ♻️🍃🌍
 
-Simple garbage collection helper ♻️ web application, built with 💚 Vue.JS, Typescript, Express, MySQL, Knex, Vuex...
+Simple garbage collection helper ♻️ web application, built with 💚 Vue.JS, Nuxt.JS, Express/Typescript, MySQL, Knex, Vuex...
 
 ## How to install and run (production build) 🛠
 Using yarn (server folder):
@@ -15,7 +15,8 @@ Using yarn (client folder):
 
 ```bash
 $ yarn 
-$ yarn serve
+$ yarn build
+$ yarn start
 ```
 
 ----------
