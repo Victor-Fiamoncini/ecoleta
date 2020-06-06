@@ -47,7 +47,7 @@ export default {
 		'@/static/css/CreatePoint.css',
 		'@/static/css/Home.css',
 	],
-	plugins: [],
+	plugins: ['@/plugins/locations'],
 	buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/router'],
 	modules: ['@nuxtjs/dotenv', 'nuxt-leaflet'],
 	axios: {},

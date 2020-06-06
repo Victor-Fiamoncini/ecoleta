@@ -12,11 +12,8 @@
 					<span>Voltar para home</span>
 				</nuxt-link>
 			</header>
-			<form>
-				<h1>
-					Cadastro do
-					<br />ponto de coleta
-				</h1>
+			<form @submit.prevent="doStorePoint">
+				<h1>Cadastro do <br />ponto de coleta</h1>
 				<fieldset>
 					<legend>
 						<h2>Dados</h2>
@@ -55,16 +52,34 @@
 					<div class="field-group">
 						<div class="field">
 							<label for="uf">Estado (UF)</label>
-							<select id="uf" name="uf">
-								<option value="0" disabled selected>Selecione uma UF</option>
+							<select id="uf" name="uf" @change="doUpdateCitiesSelect">
+								<option v-if="states.length === 0" disabled selected>
+									Carregando...
+								</option>
+								<option
+									v-for="state in states"
+									v-else
+									:key="state.sigla"
+									:value="state.sigla"
+								>
+									{{ state.sigla }}
+								</option>
 							</select>
 						</div>
 						<div class="field">
 							<label for="city">Cidade</label>
 							<select id="city" name="city">
-								<option value="0" disabled selected
-									>Selecione uma cidade</option
+								<option v-if="cities.length === 0" disabled selected>
+									Carregando...
+								</option>
+								<option
+									v-for="city in cities"
+									v-else
+									:key="city.id"
+									:value="city.nome"
 								>
+									{{ city.nome }}
+								</option>
 							</select>
 						</div>
 					</div>
@@ -101,23 +116,31 @@ export default {
 			name: 'Ponto de coleta de Rodeio',
 			email: 'victor.fiamoncini@gmail.com',
 			whatsapp: '47988897443',
-			uf: '',
-			city: '',
 			image: '',
+			selectedUf: '',
+			selectedCity: '',
 			seletedItems: [],
 		},
+		states: [],
+		cities: [],
 	}),
 	computed: {
 		...mapGetters('items', ['items']),
 	},
 	async created() {
 		await this.actionFetchItems()
+
+		this.states = await this.$locations.states()
+		this.cities = await this.$locations.byUf(this.states[0].sigla)
 	},
 	methods: {
 		...mapActions('items', ['actionFetchItems']),
 
-		doSubmit() {
-			return ''
+		async doUpdateCitiesSelect({ target }) {
+			this.cities = await this.$locations.byUf(target.value)
+		},
+		async doStorePoint() {
+			return await ''
 		},
 	},
 	head: () => ({
