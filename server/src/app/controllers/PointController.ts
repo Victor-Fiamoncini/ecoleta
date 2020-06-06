@@ -64,10 +64,13 @@ class PointController {
 			const point = await pointDao.create(pointDto)
 
 			const pointItemDao = new PointItemDAO()
-			const pointItems = items.map((itemId: number) => ({
-				item_id: itemId,
-				point_id: point.id,
-			}))
+			const pointItems = items
+				.split(',')
+				.map((item: string) => item.trim())
+				.map((itemId: number) => ({
+					item_id: itemId,
+					point_id: point.id,
+				}))
 
 			await pointItemDao.create(pointItems)
 
