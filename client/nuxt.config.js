@@ -16,7 +16,18 @@ export default {
 				content: '#34CB79',
 			},
 		],
-		link: [{ rel: 'icon', type: 'image/x-icon', href: '/images/logo.svg' }],
+		link: [
+			{ rel: 'icon', type: 'image/x-icon', href: '/images/logo.svg' },
+			{
+				rel: 'stylesheet',
+				href:
+					'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap',
+			},
+			{
+				rel: 'stylesheet',
+				href: 'https://unpkg.com/leaflet@1.6.0/dist/leaflet.css',
+			},
+		],
 		script: [
 			{
 				src:
@@ -33,8 +44,11 @@ export default {
 	],
 	plugins: [],
 	buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/router'],
-	modules: ['@nuxtjs/axios', '@nuxtjs/dotenv'],
+	modules: ['@nuxtjs/axios', '@nuxtjs/dotenv', 'nuxt-leaflet'],
 	axios: {},
+	env: {
+		apiUrl: process.env.MAIN_API_URL || 'http://localhost:8000',
+	},
 	build: {
 		extend(config, ctx) {},
 	},
