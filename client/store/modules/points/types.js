@@ -1,1 +1,4 @@
-export default {}
+export default {
+	STORE_POINT: 'POINTS/STORE_POINT',
+	STORE_POINT_ERROR: 'POINTS/STORE_POINT_ERROR',
+}

@@ -39,6 +39,11 @@ button {
 	outline-width: 1px;
 }
 
+select,
+input {
+	cursor: pointer;
+}
+
 button,
 a {
 	transition: all .3s;

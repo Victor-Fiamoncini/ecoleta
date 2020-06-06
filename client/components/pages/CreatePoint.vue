@@ -48,11 +48,15 @@
 						<h2>Endereço</h2>
 						<span>Selecione o endereço no mapa</span>
 					</legend>
-					<Map />
+					<Map
+						:latitude="form.latitude"
+						:longitude="form.longitude"
+						@doSetCoordinates="doSetCoordinates"
+					/>
 					<div class="field-group">
 						<div class="field">
 							<label for="uf">Estado (UF)</label>
-							<select id="uf" name="uf" @change="doUpdateCitiesSelect">
+							<select id="uf" name="uf" @change="uf">
 								<option v-if="states.length === 0" disabled selected>
 									Carregando...
 								</option>
@@ -68,7 +72,7 @@
 						</div>
 						<div class="field">
 							<label for="city">Cidade</label>
-							<select id="city" name="city">
+							<select id="city" name="city" @change="doSelectCity">
 								<option v-if="cities.length === 0" disabled selected>
 									Carregando...
 								</option>
@@ -117,8 +121,10 @@ export default {
 			email: 'victor.fiamoncini@gmail.com',
 			whatsapp: '47988897443',
 			image: '',
-			selectedUf: '',
-			selectedCity: '',
+			uf: '',
+			city: '',
+			latitude: 0,
+			longitude: 0,
 			seletedItems: [],
 		},
 		states: [],
@@ -130,17 +136,42 @@ export default {
 	async created() {
 		await this.actionFetchItems()
 
-		this.states = await this.$locations.states()
-		this.cities = await this.$locations.byUf(this.states[0].sigla)
+		const states = await this.$locations.states()
+		const citiesOfFirstState = await this.$locations.byUf(states[0].sigla)
+
+		this.states = states
+		this.cities = citiesOfFirstState
+
+		this.form.uf = states[0].sigla
+		this.form.city = citiesOfFirstState[0].nome
+
+		navigator.geolocation.getCurrentPosition(({ coords }) => {
+			this.form.latitude = coords.latitude
+			this.form.longitude = coords.longitude
+		})
 	},
 	methods: {
 		...mapActions('items', ['actionFetchItems']),
+		...mapActions('points', ['actionStorePoint']),
 
-		async doUpdateCitiesSelect({ target }) {
+		async uf({ target }) {
+			this.form.uf = target.value
+
 			this.cities = await this.$locations.byUf(target.value)
+			this.form.city = this.cities[0].nome
+		},
+		doSelectCity({ target }) {
+			this.form.city = target.value
+		},
+		doSetCoordinates({ latitude, longitude }) {
+			this.form.latitude = latitude
+			this.form.longitude = longitude
 		},
 		async doStorePoint() {
-			return await ''
+			await this.actionStorePoint({
+				...this.form,
+				items: this.seletedItems,
+			})
 		},
 	},
 	head: () => ({
