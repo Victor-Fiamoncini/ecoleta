@@ -5,6 +5,7 @@
     "strict": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
-		"noImplicitAny": false
+		"noImplicitAny": false,
+		"outDir": "./build"
 	}
 }
