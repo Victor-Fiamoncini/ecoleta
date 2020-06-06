@@ -88,7 +88,7 @@
 						</div>
 					</div>
 				</fieldset>
-				<fieldset v-if="fetchedItems">
+				<fieldset v-if="fetchedItems.length > 0">
 					<legend>
 						<h2>Ítens de coleta</h2>
 						<span>Selecione um ou mais items abaixo</span>
