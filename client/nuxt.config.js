@@ -43,6 +43,7 @@ export default {
 	},
 	loading: { color: '#34CB79' },
 	css: [
+		'@/static/css/styles.css',
 		'@/static/css/App.css',
 		'@/static/css/CreatePoint.css',
 		'@/static/css/Home.css',

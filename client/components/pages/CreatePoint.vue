@@ -12,8 +12,9 @@
 					<span>Voltar para home</span>
 				</nuxt-link>
 			</header>
-			<form @submit.prevent="doStorePoint">
+			<form enctype="multipart/form-data" @submit.prevent="doStorePoint">
 				<h1>Cadastro do <br />ponto de coleta</h1>
+				<Dropzone @doSetFile="doSetFile" />
 				<fieldset>
 					<legend>
 						<h2>Dados</h2>
@@ -114,11 +115,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import Map from '@/components/utils/Map'
+import Dropzone from '@/components/utils/Dropzone'
 
 export default {
 	name: 'CreatePoint',
 	components: {
 		Map,
+		Dropzone,
 	},
 	data: () => ({
 		form: {
@@ -174,6 +177,11 @@ export default {
 			this.form.latitude = latitude
 			this.form.longitude = longitude
 		},
+		doSetFile(file) {
+			console.log(file)
+
+			this.form.image = file
+		},
 		doSelectItem(id) {
 			const alreadySeleted = this.form.items.includes(id)
 
@@ -184,7 +192,19 @@ export default {
 			}
 		},
 		async doStorePoint() {
-			await this.actionStorePoint(this.form)
+			const data = new FormData()
+
+			data.append('name', this.form.name)
+			data.append('email', this.form.email)
+			data.append('whatsapp', this.form.whatsapp)
+			data.append('image', this.form.image)
+			data.append('uf', this.form.uf)
+			data.append('city', this.form.city)
+			data.append('latitude', this.form.latitude)
+			data.append('longitude', this.form.longitude)
+			data.append('items', this.form.items.join(','))
+
+			await this.actionStorePoint(data)
 		},
 	},
 	head: () => ({
