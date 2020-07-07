@@ -1,6 +1,6 @@
 # Ecoleta ♻️🍃🌍
 
-Simple garbage collection ♻️ marketplace, built with 💚 Vue.JS, Nuxt.JS, Express/Typescript, MySQL, Knex, Vuex...
+Garbage collection ♻️ marketplace, built with 💚 Vue.JS/Nuxt.JS, Express/Typescript, MySQL, Knex, Vuex...
 
 ## How to install and run (production build) 🛠
 Using yarn (server folder):
