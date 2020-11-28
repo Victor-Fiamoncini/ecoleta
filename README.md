@@ -1,6 +1,6 @@
-# Ecoleta ♻️🍃🌍
+# Ecoleta
 
-Garbage collection ♻️ marketplace, built with 💚 Vue.JS/Nuxt.JS, Express/Typescript, MySQL, Knex, Vuex...
+Garbage collection marketplace, built with Vue.JS/Nuxt.JS, Express/Typescript, MySQL, Knex, Vuex...
 
 ## How to install and run (production build) 🛠
 Using yarn (server folder):
@@ -22,4 +22,4 @@ $ yarn start
 ----------
 Released in 2020. This project is under the MIT license.
 
-By [Victor B. Fiamoncini](https://github.com/Victor-Fiamoncini) 🚀
+By [Victor B. Fiamoncini](https://github.com/Victor-Fiamoncini) ☕️
